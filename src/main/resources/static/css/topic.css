@@ -1,0 +1,184 @@
+hr {
+	border-color: #369;
+}
+
+.topicContainer {
+	margin-top: 10px;
+}
+
+.topicContainer ul {
+	list-style: none;
+}
+
+.topic {
+	border: 1px solid #369;
+	padding: 10px 10px;
+	background-color: rgba(255, 255, 255, 0.95);
+}
+
+.topicTitle {
+	margin-left: 40px;
+}
+
+.topicTitle,
+.topicInfo {
+	margin-top: -5px;
+}
+
+.topicText {
+	white-space: pre;
+	border: 1px solid #369;
+	padding: 5px 10px;
+	background-color: #f4f4f4;;
+	border-radius: 7px;
+    margin-top: 20px;
+}
+
+.voting {
+	float: left;
+	margin-top: -9px;
+}
+
+.voting > ul {
+	display: table;
+	list-style: none;
+	margin: 10px 0px 0px;
+	padding: 0px;
+	text-align: center;
+}
+
+.voting > ul {
+	width: 70%;
+	margin: auto;
+}
+
+.voting > ul > li {
+	color: rgb(30, 30, 30);
+	font-size: 11pt;
+	font-weight: 300;
+  padding: 3px 0px;
+}
+
+.voting > ul > li {    
+  padding: 0px;
+}
+
+.upvote a,
+.downvote a {
+	display: block;
+	width: 100%;
+	padding: 5px;
+}
+
+.upvote a {
+	color: #5A9509;
+}
+
+.downvote a {
+	color: #EE4444;
+}
+
+.upvote:hover a {
+	color: rgb(255, 255, 255) !important;
+	background-color: #5A9509 !important;
+}
+
+.downvote:hover a {
+	color: rgb(255, 255, 255) !important;
+	background-color: #EE4444 !important;
+}
+
+.comment {
+	white-space: pre;
+	display: flex;
+}
+
+.commentVoting {
+	float: left;
+	margin-top: 3px;
+}
+
+.commentVoting > ul {
+	display: table;
+	list-style: none;
+	padding: 0px;
+	text-align: center;
+}
+
+.commentUpvote a {
+	color: #5A9509;
+	padding: 4px;
+}
+
+.commentDownvote a {
+	color: #EE4444;
+	padding: 4px;
+}
+
+.commentUpvote:hover a {
+	color: rgb(255, 255, 255) !important;
+	background-color: #5A9509 !important;
+}
+
+.commentDownvote:hover a {
+	color: rgb(255, 255, 255) !important;
+	background-color: #EE4444 !important;
+}
+
+.comments-list {
+	margin-left: -35px;
+}
+
+.comments-list > li {
+	margin-bottom: 15px;
+}
+
+.subcomments-list > li {
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+.commentUserInfo {
+	display: flex;
+}
+
+.commentUsername {
+	font-size: 11pt;
+	margin-left: 3px;
+  align-self: center;
+}
+
+.commentTimePostedDiv {
+	font-size: 9pt;
+}
+
+.commentUsername > a {
+	cursor: pointer;
+}
+
+.commentLink {
+	float: right;
+	margin-top: 5px;
+	padding: 5px 5px 5px 5px;
+	background-color: #337ab7;
+	color: #fff;
+	border-radius: 5px;
+}
+
+.commentLink:hover {
+	color: #fff;
+	background-color: #286090;
+	text-decoration: none;
+}
+
+.commentsOverview {
+	width: 100%;
+}
+
+.commentPoints {
+	font-size: inherit;
+}
+
+.btnWriteComment {
+	float: right;
+}

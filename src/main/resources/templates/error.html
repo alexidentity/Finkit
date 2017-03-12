@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	  <title>FinkIt - Error</title>
+		
+	  <link rel="shortcut icon" type="image/x-icon" th:href="@{/media/favicon.ico}" />
+
+	  <!-- Core css and jquery -->
+	  <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+	  <link th:href="@{/css/font-awesome.css}" rel="stylesheet" />
+	  <script th:src="@{/js/jquery-2.1.4.js}"></script>
+	  <script th:src="@{/js/bootstrap.js}"></script>
+
+	  <link th:href="@{/css/jquery-ui.css}" rel="stylesheet" />
+	  <script th:src="@{/js/jquery-ui.js}"></script>
+
+	  <!-- Navbars -->
+	  <link th:href="@{/css/navbar.css}" rel="stylesheet" />
+	  <link th:href="@{/css/navbarTopics.css}" rel="stylesheet" />
+	  <script th:src="@{/js/navbar.js}"></script>
+	  <script th:src="@{/js/navbarTopics.js}"></script>
+	  <script th:src="@{/js/jquery.searchable.js}"></script>
+
+      <!-- Profile -->
+      <link th:href="@{/css/error.css}" rel="stylesheet" />
+  </head>
+
+  <body th:with="navbarLeftButtons=false">
+    <div th:replace="fragments/navbar :: navbarFragment"></div>
+<!--     <div th:replace="fragments/topicSidebar :: topicSidebarFragment"></div> -->
+
+    <div class="row errorParent">
+      <div class="col-md-6">
+        <h1 class="oops">Oops!</h1>
+        <h1 class="errorMessage">We can't find the page you're looking for or you don't have permission to access it.</h1>
+      </div>
+    </div><!--/.row-->
+
+  </body>
+</html>

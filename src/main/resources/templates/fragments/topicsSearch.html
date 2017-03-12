@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<div th:fragment="topicSearchFragment" th:if="${viewModel.topicInfoSidebar.subtopic} != 'all'">
+	
+	<!-- Sidebar view -->
+	<button id="btnToggleSidebar" type="button" class="btn btn-default">
+		<span class="glyphicon glyphicon-chevron-right"></span>
+	 </button>
+	
+	<div class="navbar navbar-default navbar-inverse sidebar" role="navigation">
+		<div class="container">
+			<div class="">
+				<ul id="sideNavbar" class="nav navbar-nav">
+					<form class="navbar-form" role="search" method="get" th:action="@{/t/{subtopic}(subtopic=${viewModel.topicInfoSidebar.subtopic})}">
+						<li>
+			        <div class="form-group">
+			          <input id="topicSearch" name="query" type="text" class="form-control" placeholder="Search" />
+			          <button id="btnSearchInTopic" type="submit" class="btn btn-default btn-danger">
+			        	<span class="glyphicon glyphicon-search"></span>
+			          </button>
+			        </div>
+						</li>
+					</form>
+					<li class="newPost" sec:authorize="isAuthenticated()">
+						<a id="btnNewPost" th:href="@{/t/{subtopicName}/newpost(subtopicName=${viewModel.topicInfoSidebar.subtopic})}">
+		        			<span class="glyphicon glyphicon-plus"></span> New Post
+		        		</a>
+					</li>
+					<li class="currentTopicInfo">
+						<h3 class="currentTopicName" th:text="'/t/' + ${viewModel.topicInfoSidebar.subtopic}"></h3>
+						<p class="">has been favourited by <span class="currentTopicFavourites" th:text="${viewModel.topicInfoSidebar.favouritedByFormatted}"></span> users</p>
+					</li>
+					<li>
+						<div class="sidebarTitle">
+							Description:
+						</div>
+						<div class="currentTopicDescription">
+							<p th:text="${viewModel.topicInfoSidebar.description}"></p>
+						</div>
+					</li>
+					<li>
+						<div class="sidebarTitle">
+							Rules:
+						</div>
+						<div class="currentTopicRules">
+							<ul th:if="${not #lists.isEmpty(viewModel.topicInfoSidebar.rules)}">
+								<li th:each="rule : ${viewModel.topicInfoSidebar.rules}" th:inline="text">
+									<span class="glyphicon glyphicon-hand-right"></span>
+									 [[${rule}]]
+								</li>
+							</ul>
+							<div class="noRulesMsg" th:if="${#lists.isEmpty(viewModel.topicInfoSidebar.rules)}">
+								There are no rules for this subtopic.
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="sidebarTitle">
+							Moderator:
+						</div>
+						<div class="currentTopicModerator">
+							<img class="currentTopicModeratorAvatar" th:attr="src=@{${viewModel.topicInfoSidebar.avatarUrl}}" />
+							<a class="currentTopicModeratorUsername" th:href="@{/profile/{username}(username=${viewModel.topicInfoSidebar.moderator})}" th:text="${viewModel.topicInfoSidebar.moderator}"></a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+  
+</html>

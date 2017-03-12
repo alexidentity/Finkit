@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<title>FinkIt - Home</title>
+
+		<link rel="shortcut icon" type="image/x-icon" th:href="@{/media/favicon.ico}" />
+
+		<!-- Core css and jquery -->
+		<link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+		<link th:href="@{/css/font-awesome.css}" rel="stylesheet" />
+		<script th:src="@{/js/jquery-2.1.4.js}"></script>
+		<script th:src="@{/js/bootstrap.js}"></script>
+
+		<link th:href="@{/css/jquery-ui.css}" rel="stylesheet" />
+		<script th:src="@{/js/jquery-ui.js}"></script>
+		
+		<script th:src="@{/js/angular.js}"></script>
+
+		<!-- Navbars -->
+		<link th:href="@{/css/navbar.css}" rel="stylesheet" />
+		<link th:href="@{/css/navbarTopics.css}" rel="stylesheet" />
+		<script th:src="@{/js/navbar.js}"></script>
+		<script th:src="@{/js/navbarTopics.js}"></script>
+		<script th:src="@{/js/jquery.searchable.js}"></script>
+
+		<!-- Sidebar -->
+		<link th:href="@{/css/sidebar.css}" rel="stylesheet" />
+		<script th:src="@{/js/sidebar.js}"></script>
+
+		<!-- Posts -->
+		<link th:href="@{/css/posts.css}" rel="stylesheet" />
+		<link th:if="${not viewModel.isTopicStyleDefault}" th:href="@{/dynamic/css/{cssName}.css(cssName=${viewModel.topicInfoSidebar.subtopic})}" rel="stylesheet" type="text/css" />
+		<script th:src="@{/js/vote.js}"></script>
+  </head>
+
+  <body th:with="navbarLeftButtons=true">
+  		<div th:replace="fragments/navbar :: navbarFragment"></div> 
+   		<div th:replace="fragments/topicsSearch :: topicSearchFragment"></div>
+  		<div th:replace="fragments/topicSidebar :: topicSidebarFragment"></div>
+  		
+		<!-- Posts view -->
+		<div class="posts" ng-app="">
+			<div class="row">
+				<div class="post col-md-8 col-xs-offset-1">
+					<ul class="post-list">
+						<li th:each="post, i : ${viewModel.posts}" 
+							th:attr="data-ng-model='upvotes_' + ${i.index} + '=\'' + ${post.upvotes} + '\'' + ';' + 'downvotes_' + ${i.index} + '=\'' + ${post.downvotes} + '\''">
+							<time>
+								<span class="postVotes" th:inline="text" th:attr="id='postVotes_' + ${i.index}">
+								{{ upvotes_[[${i.index}]] - downvotes_[[${i.index}]] }}</span>
+							</time>
+							<div class="info">
+								<h2 class="title">
+									<a th:if="${post.post.postLink == ''}" th:href="@{/post/{postid}(postid=${post.post.id})}" th:text="${post.post.title}">Naslov</a>
+									<a th:if="${post.post.postLink != ''}" th:href="@{${post.post.postLink}}" th:text="${post.post.title}">Naslov</a>
+								</h2>
+								<p class="description" th:text="${post.post.shortDescription}">Kratok opis</p>
+								<ul class="postLinks">
+									<li>
+										<a class="postLink" th:href="@{/post/{postid}(postid=${post.post.id})}" target="_blank">
+											<span class="glyphicon glyphicon-new-window"></span> See post
+										</a>
+										<a class="postComments" th:href="@{/post/{postid}#comments(postid=${post.post.id})}" target="_blank">
+											<span class="glyphicon glyphicon-comment"></span> Comments
+										</a>
+										
+										<p class="postInfo" th:inline="text">
+									    	<a class="postedBy" th:href="@{/profile/{postedBy}(postedBy=${post.post.postedBy})}" th:text="${post.post.postedBy}"></a> 
+									    	from 
+									    	<a class="subtopic" th:href="@{/t/{subtopic}(subtopic=${post.post.subtopic})}" th:text="'/t/' + ${post.post.subtopic}"></a> 
+											[[${post.post.postInfoFormatted}]]
+								    	</p>
+									</li>
+								</ul>
+							</div>
+							<div class="voting">
+								<ul th:attr="data-post-id=${post.post.id}, data-post-number=${i.index}">
+									<li class="upvote">
+										<a href="#" th:attr="id='upvote_' + ${i.index}" th:classappend="${post.isPostUpvotedByUser} ? 'upvotedByUser voted' : notVoted">
+											<span class="glyphicon glyphicon-triangle-top"></span>
+										</a>
+									</li>
+									<li class="downvote">
+										<a href="#" th:attr="id='downvote_' + ${i.index}" th:classappend="${post.isPostDownvotedByUser} ? 'downvotedByUser voted' : notVoted">
+											<span class="glyphicon glyphicon-triangle-bottom"></span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li><!-- End of Post -->
+					</ul>
+				</div>
+			</div>
+		</div>
+
+  </body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	
+  <head>
+    <meta charset="utf-8" />
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	  <title>FinkIt - Profile</title>
+		
+	  <link rel="shortcut icon" type="image/x-icon" th:href="@{/media/favicon.ico}" />
+
+	  <!-- Core css and jquery -->
+	  <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+	  <link th:href="@{/css/font-awesome.css}" rel="stylesheet" />
+	  <script th:src="@{/js/jquery-2.1.4.js}"></script>
+	  <script th:src="@{/js/bootstrap.js}"></script>
+
+	  <link th:href="@{/css/jquery-ui.css}" rel="stylesheet" />
+	  <script th:src="@{/js/jquery-ui.js}"></script>
+
+	  <!-- Navbars -->
+	  <link th:href="@{/css/navbar.css}" rel="stylesheet" />
+	  <link th:href="@{/css/navbarTopics.css}" rel="stylesheet" />
+	  <script th:src="@{/js/navbar.js}"></script>
+	  <script th:src="@{/js/navbarTopics.js}"></script>
+	  <script th:src="@{/js/jquery.searchable.js}"></script>
+
+      <!-- Profile -->
+      <link th:href="@{/css/profile.css}" rel="stylesheet" />
+      <script th:src="@{/js/profile.js}"></script>
+  </head>
+
+  <body th:with="navbarLeftButtons=false">
+ 	<div th:replace="fragments/navbar :: navbarFragment"></div>
+    <div th:replace="fragments/topicSidebar :: topicSidebarFragment"></div>
+	
+	<!-- Change avatar overview -->
+	<div id="warningMessage" class="row">
+		<div class="col-md-5 col-md-offset-4 alerterino">
+			<div id="alertType" class="alert alert-warning">
+			  <button class="btnDismissWarning btn btn-default">
+			  	<span class="glyphicon glyphicon-remove"></span>
+			  </button>
+			  <strong id="alertTitle">Warning!</strong>
+			  <p id="alertMessage">Indicates a warning that might need attention.</p>
+			</div>
+		</div>
+	</div><!--/.row-->
+
+	<div class="changeAvatar">
+		<form id="changeAvatarForm" name="saveAvatar" enctype="multipart/form-data" method="post" action="/changeAvatar">
+			<div id="uploadedImg">
+				<a class="closePopup">
+					<span class="glyphicon glyphicon-remove"></span>
+				</a>
+				<img name="avatar" id="image" src="" />
+			</div>
+
+			<div class="changeAvatarButtons">
+				<span class="btn btn-primary btn-file"> <span
+					class="glyphicon glyphicon-cloud-upload"></span> Upload avatar <input
+					type="file" id="upload" name="avatar" accept="image/*" />
+				</span>
+				<button id="btnSave" type="submit" class="btn btn-success">
+					<span class="glyphicon glyphicon-floppy-disk"></span> Save
+				</button>
+			</div>
+		</form>
+	</div>
+
+	<div th:if="${viewModel.loggedInUserOnHisProfile}" id="manageTopics" class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<div class="manageTopicsContent panel panel-warning">
+				<div class="panel-heading">
+			    <h3 class="panel-title">Manage your topics
+				    <a id="btnCloseManageTopics">
+				    	<span class="glyphicon glyphicon-remove"></span>
+				  	</a>
+			    </h3>
+			  </div>
+			  
+			  <div class="panel-body">
+			  	<table class="myTopics">
+				  <tr>
+				    <th>Topic name</th>
+				    <th>Edit</th> 
+<!-- 				    <th>Delete</th> -->
+				  </tr>
+				  
+				  <tr class="singleTopic" th:each="createdTopic : ${viewModel.createdTopics}">
+				    <td>
+				    	<a class="createdTopicLink" th:text="${createdTopic}" 
+				    	   th:href="@{/t/{createdTopic}(createdTopic=${createdTopic})}">
+					  	</a>
+				    </td>
+				    <td class="topicLink">
+				    	<a class="editTopic" th:href="@{/t/{createdTopic}/edit(createdTopic=${createdTopic})}">
+					    	<span class="glyphicon glyphicon-cog"></span>
+					  	</a>
+				    </td> 
+<!-- 				    <td class="topicLink"> -->
+<!-- 				    	<a class="deleteTopic" th:href="@{/t/{createdTopic}/delete(createdTopic=${createdTopic})}"> -->
+<!-- 					    	<span class="glyphicon glyphicon-remove"></span> -->
+<!-- 					  	</a> -->
+<!-- 				    </td> -->
+				  </tr>
+				</table>
+			  </div>
+	  	</div>
+		</div>
+	</div><!--/.row-->
+		
+		<!-- Profile overview -->
+		<div class="profileContainer">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="profileBorder">
+						<div class="row">
+						<div class="card hovercard">
+			        <div class="card-background">
+			            
+			            <div class="userStats">
+			            	<div>
+				            	<h3>
+                        			<span class="username profileUsername" th:attr="data-username=${viewModel.user.login}" th:inline="text">[[${viewModel.user.loginCapitalized}]]'s</span> Stats:
+                      			</h3>
+		            			<button 
+		            				th:if="${not viewModel.loggedInUserOnHisProfile}" 
+		            				sec:authorize="isAuthenticated()" 
+		            				th:attr="data-username=${viewModel.user.login}" 
+		            				th:classappend="${viewModel.loggedInUserFollowing} ? userIsFollowing : userIsNotFollowing" 
+		            				id="btnFollow" type="button" class="btn btn-info">
+		            				Follow
+		            			</button>
+								      
+				      			<button th:if="${viewModel.loggedInUserOnHisProfile}" id="btnManageTopics" type="button" class="btn btn-default">My Topics</button>
+				      		</div>
+							      
+			            	<hr />
+			            	
+			            	<p th:inline="text">Registered on: [[${viewModel.user.registeredDateFormatted}]]</p>
+			            	
+			            	<div class="statsLeft">
+			            		<p>Number of comments:
+			            			<span id="numberOfComments" class="badge alert-info" th:text="${viewModel.userStatistics.numberOfComments}"></span>
+                                </p>
+			            		<p>Number of posts: 
+			            			<span id="numberOfPosts" class="badge alert-info" th:text="${viewModel.userStatistics.numberOfPosts}"></span>
+			            		</p>
+			            	</div>
+			            	
+			            	<div class="statsRight">
+			            		<p>Number of topics: 
+			            			<span id="numberOfTopics" class="badge alert-info" th:text="${viewModel.userStatistics.numberOfTopics}"></span>
+			            		</p>
+			            		<p>Total karma points: 
+			            			<span id="totalKarmaPoints" class="badge alert-danger" th:text="${viewModel.userStatistics.totalKarmaPoints}"></span>
+			            		</p>
+			            	</div>
+			            </div>
+			        </div>
+			        
+			        <a th:if="${viewModel.loggedInUserOnHisProfile}" class="useravatar">
+		            	<img class="avatarCircle" th:attr="src=@{${viewModel.user.avatarUrl}}" />
+			            <span class="settings">Change</span>
+			        </a>
+			        
+			        <div th:if="${not viewModel.loggedInUserOnHisProfile}" class="useravatar-n">
+			            <img class="avatarCircle" th:attr="src=@{${viewModel.user.avatarUrl}}" />
+			        </div>
+			    	</div>
+			    			<div class="col-md-6 recentActivity">
+				    			<h3>Recent user activity:</h3>
+				    			<hr />
+				    			
+					      	<ul class="recentActivityList">
+					      		<div class="emptyActivityList" th:if="${#lists.isEmpty(viewModel.userActivityModelList)}">
+									This user has no activity right now!
+								</div>
+					      		<li th:each="activity : ${viewModel.userActivityModelList}">
+					      			<div class="recentPostLeftBar">&nbsp;</div>
+					      			<div class="recentPost">
+						      			<div>
+						      				<span class="activityCategory postInfo" th:text="${activity.activityType}"></span>
+						      				<span th:classappend="${activity.activityType}" class="glyphicon activityType postInfo"></span>
+						      				<span class="postInfo"> : </span>
+						      				<a class="title postInfo" 
+						      					th:href="@{/post/{postId}(postId=${activity.postId})}" 
+						      					th:text="${activity.postName}">
+						      				</a>
+						      				<span class="postInfo" th:text="${activity.formattedTimestamp}"></span>
+						      			</div>
+						      			<span class="postComment" th:text="${activity.postComment}"></span>
+									</div>
+					      		</li><!-- End of Post -->
+					      	</ul>
+					      </div>
+					      
+					      <!-- Following -->
+					      <div class="col-md-6 followingUsers">
+				    			<h3>Following users:</h3>
+				    			<hr />
+				    			
+						      <div class="following">
+						      	<div th:if="${#lists.isEmpty(viewModel.followers)}">
+									This user does not follow anyone!
+								</div>
+						      	<a th:each="follower, i : ${viewModel.followers}" th:href="@{/profile/{username}(username=${follower.login})}">
+						      		<img th:attr="src=@{${follower.avatarUrl}}" />
+						      		<span class="followerUsername" th:text="${follower.login}">Unknown</span>
+						      	</a>
+						      </div>
+					      </div><!-- End of Following -->
+			    	
+					</div><!-- End of Row -->
+					
+						
+					</div><!-- End of ProfileBorder -->
+				</div>
+			</div>
+		</div>
+
+  </body>
+</html>

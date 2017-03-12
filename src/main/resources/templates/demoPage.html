@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" class="no-js" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8"></meta>
+	<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+
+	<link href='http://fonts.googleapis.com/css?family=Droid+Serif|Open+Sans:400,700' rel='stylesheet' type='text/css'></link>
+
+	<link rel="stylesheet" href="css/libs/reset.css"></link> <!-- CSS reset -->
+	<link rel="stylesheet" href="css/libs/style-timeline.css"></link> <!-- Resource style -->
+	<script src="js/libs/modernizr.js"></script> <!-- Modernizr -->
+  	
+	<title>Responsive Vertical Timeline</title>
+</head>
+<body>
+	<header>
+		<h1 th:text="#{shelter.homePage.title}">Takvo za milenici</h1>
+	</header>
+
+	<section id="cd-timeline" class="cd-container">
+	
+		<div class="cd-timeline-block" th:each="catEvent,iterationStatus : ${viewModel.catEvents}">
+			<div class="cd-timeline-img cd-picture">
+				<img src="img/cat-icon-02.svg" alt="Kitten"></img>
+			</div> <!-- cd-timeline-img -->
+
+			<div class="cd-timeline-content">
+				<h2 th:text="${catEvent.title}">Title of section 1</h2>
+				<img class="eventImg" src="img/kiro_head.png"/>
+				<p th:text="${catEvent.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
+				<a th:href="@{/cat/{id}/details(id=${catEvent.cat.id})}" class="cd-read-more">Details</a>
+				<span class="cd-date" th:text="${catEvent.formattedEventDate}">Jan 14</span>
+			</div> <!-- cd-timeline-content -->
+		</div> <!-- cd-timeline-block -->
+		
+	</section> <!-- cd-timeline -->
+	
+	<script src="js/libs/jquery-2.2.3.js"></script>
+	<script src="js/libs/main.js"></script>
+</body>
+</html>

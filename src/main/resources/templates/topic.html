@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<title>FinkIt - Topic</title>
+
+		<link rel="shortcut icon" type="image/x-icon" th:href="@{/media/favicon.ico}" />
+
+		<!-- Core css and jquery -->
+		<link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+		<link th:href="@{/css/font-awesome.css}" rel="stylesheet" />
+		<script th:src="@{/js/jquery-2.1.4.js}"></script>
+		<script th:src="@{/js/bootstrap.js}"></script>
+
+		<link th:href="@{/css/jquery-ui.css}" rel="stylesheet" />
+		<script th:src="@{/js/jquery-ui.js}"></script>
+
+		<!-- Navbars -->
+		<link th:href="@{/css/navbar.css}" rel="stylesheet" />
+		<link th:href="@{/css/navbarTopics.css}" rel="stylesheet" />
+		<script th:src="@{/js/navbar.js}"></script>
+		<script th:src="@{/js/navbarTopics.js}"></script>
+		<script th:src="@{/js/jquery.searchable.js}"></script>
+
+		<!-- newTopic -->
+		<link th:href="@{/css/newtopic.css}" rel="stylesheet" />
+		<script th:src="@{/js/newtopic.js}"></script>
+  </head>
+
+  <body th:with="navbarLeftButtons=true">
+	 
+	<div th:replace="fragments/navbar :: navbarFragment"></div> 
+	<div th:replace="fragments/topicSidebar :: topicSidebarFragment"></div>
+	
+	<div class="topicAlert col-md-6 col-md-offset-3" th:if="${showError}">
+		<div class="alert alert-danger" th:inline="text">
+		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		  <strong>Error message!</strong>
+	  	[[${errors}]]
+		</div>
+	</div>
+	
+		<div class="topicAlert ta col-md-6 col-md-offset-3">
+			<div class="alert alert-danger">
+			  <a href="#" class="close">&times;</a>
+			  <strong>Error message!</strong>
+			  <ul class="errorList"></ul>
+			</div>
+		</div>
+		
+		<!-- New Post overview -->
+		<div class="newTopicContainer">
+			<div class="row">
+				<div class="newTopicOverview col-md-12">
+					<div class="newTopicBorder">
+						<div class="newTopicDescription col-lg-6">
+							<div class="alert alert-info">
+							  The <strong>topic name</strong> should be unique!
+							</div>
+							
+							<div class="alert alert-info">
+							  The <strong>description</strong> should be short and concise!
+							</div>		
+							
+							<div class="alert alert-info">
+							  The <strong>rules</strong> should be separated by a pipe <strong>'|'</strong>.
+							</div>		
+							
+							<div class="alert alert-info">
+							  Leave the <strong>background picture</strong> field empty if you want the default picture.
+							</div>
+							
+							<div class="alert alert-warning">
+							Click <strong>customize</strong> if you want to customize the navigation bar.<br />
+							  Leave <strong>customize</strong> unchecked if you want to use the default navigation bar!
+							</div>
+							
+							<div class="alert alert-warning">
+							  <strong>1.</strong> Navbar background colour<br />
+							  <strong>2.</strong> Navbar link and text colour<br />
+							  <strong>3.</strong> Subtopic link colour<br />
+							  <strong>4.</strong> Subtopic background colour
+							</div>
+						</div>
+
+						<div class="newTopic input-group col-lg-6">
+						
+							<form id="submitTopicForm" class="form" th:action="@{/newtopic/save}" method="POST">
+								<div class="configuration">
+									<span>Topic name:</span>
+									<input type="text" name="name" id="topicName" class="topicName form-control" placeholder="Topic name" 
+										th:attr="value=${topicInfo.subtopic}" />
+								</div>
+								
+								<div class="configuration">
+									<span>Description:</span>
+									<input type="text" name="description" class="topicDescription form-control" placeholder="Description" 
+										th:attr="value=${topicInfo.description}" />
+								</div>
+								
+								<div class="configuration">
+									<span>Rules:</span>
+									<textarea name="rules" class="topicRules form-control" placeholder="Rules" rows="5" cols="30" 
+										th:text="${topicInfo.rules}" >
+									</textarea>
+								</div>
+								
+								<div class="configuration">
+									<span>Background picture:</span>
+									<input class="backgroundImageUrl form-control" type="text" name="backgroundImageUrl" placeholder="Background picture url" 
+										th:attr="value=${topicInfo.backgroundImageUrl}" />
+								</div>
+								
+								<div class="panel panel-info">
+									<div class="panel-heading">
+								    <h3 class="panel-title">Navigation bar configuration</h3>
+								  </div>
+								  
+								  <div class="nbcCheckbox panel-body">
+								  	<div class="list-group">
+										  <a href="#" th:classappend="${hasCustomStyle} ? active : ''" class="list-group-item">
+										    Customize
+										  </a>
+										</div>
+										
+								  </div>
+								  
+									<div th:classappend="${hasCustomStyle} ? hasCustomStyle : ''" class="nbcDiv panel-body">
+										<div class="configuration">
+											<div class="nbConf1 col-xs-2">
+											  <label for="ex1">1</label>
+												<input id="navbarBackgroundColour" class="navbarColours form-control" type="color" name="navbarBackgroundColour" 
+													th:attr="value=${topicInfo.navbarBackgroundColour}" />
+											</div>
+											
+											<div class="nbConf1 col-xs-2">
+											  <label for="ex1">2</label>
+												<input id="navbarLinksColour" class="navbarColours form-control" type="color" name="navbarLinksColour" 
+													th:attr="value=${topicInfo.navbarLinksColour}" />
+											</div>
+											
+											<div class="nbConf1 col-xs-2">
+											  <label for="ex1">3</label>
+												<input id="navbarCurrentTopicColour" class="navbarColours form-control" type="color" name="navbarCurrentTopicColour" 
+													th:attr="value=${topicInfo.navbarCurrentTopicColour}" />
+											</div>
+											
+											<div class="nbConf1 col-xs-2">
+											  <label for="ex1">4</label>
+												<input id="navbarCurrentTopicBackgroundColour" class="navbarColours form-control" type="color" name="navbarCurrentTopicBackgroundColour" 
+													th:attr="value=${topicInfo.navbarCurrentTopicBackgroundColour}" />
+											</div>
+										</div>
+										
+										<button class="btnPreview btn btn-default">
+									  	<span class="glyphicon glyphicon-eye-open"></span> Preview
+									  </button>
+										
+										<button class="btnReset btn btn-danger">
+									  	<span class="glyphicon glyphicon-eye-close"></span> Reset
+									  </button>
+								  </div>
+								</div>
+								
+							  <button th:classappend="${isEdit} ? isEdit : ''" type="submit" class="btnSubmit btn btn-success">
+							  	<span class="glyphicon glyphicon-floppy-disk"></span> Submit
+							  </button>
+							  
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+  </body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+      
+  <head>
+    <meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<title>FinkIt</title>
+
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/media/favicon.ico}" />
+
+    <!-- Core css and jquery -->
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link th:href="@{/css/font-awesome.css}" rel="stylesheet" />
+    <script th:src="@{/js/jquery-2.1.4.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+
+    <link th:href="@{/css/jquery-ui.css}" rel="stylesheet" />
+    <script th:src="@{/js/jquery-ui.js}"></script>
+
+    <!-- Navbars -->
+    <link th:href="@{/css/navbar.css}" rel="stylesheet" />
+    <link th:href="@{/css/navbarTopics.css}" rel="stylesheet" />
+    <script th:src="@{/js/navbar.js}"></script>
+    <script th:src="@{/js/navbarTopics.js}"></script>
+    <script th:src="@{/js/jquery.searchable.js}"></script>
+
+		<!-- NewPost -->
+		<link th:href="@{/css/newpost.css}" rel="stylesheet" />
+  </head>
+
+  <body th:with="navbarLeftButtons=false">
+	<div th:replace="fragments/navbar :: navbarFragment"></div> 
+	<div th:replace="fragments/topicSidebar :: topicSidebarFragment"></div>
+		
+		<!-- New Post overview -->
+		<div class="newPostContainer">
+			<div class="row">
+				<div class="newPostOverview col-md-12">
+					<div class="newPostBorder">
+						<div class="newTopicDescription col-lg-6">
+							<div class="alert alert-info">
+							  The <strong>post title</strong> field cannot be empty!
+							</div>
+							
+							<div class="alert alert-info">
+							  Leave the <strong>post link</strong> field empty if this is a text only post!
+							</div>
+							
+							<div class="alert alert-warning">
+								<strong>Subtopic rules:</strong>
+								<div class="subtopicRules" th:if="${not #lists.isEmpty(viewModel.rules)}">
+								  	<ul>
+								  		<li th:each="rule : ${viewModel.rules}" th:text="${rule}"></li>
+								  	</ul>
+								</div>
+								<div th:if="${#lists.isEmpty(viewModel.rules)}">
+									There are no explicit rules for this subtopic.
+								</div>
+							</div>
+						</div>
+
+						<div class="newPost input-group col-lg-6">
+							<form class="form" method="POST">
+								<p>Write the post title below:</p>
+								<input name="postTitle" class="postTitle form-control" type="text" placeholder="Post title" />
+
+								<p>Paste your link below</p>
+								
+					      		<input name="postLink" class="postLink form-control" type="text" placeholder="Post link (Optional)" />
+						    
+						    	<p>Posting in:</p>
+						    	<input name="postSubtopic" class="form-control" type="text" disabled="disabled" th:value="${viewModel.subtopicName}" />
+
+						    	<div class="form-group">
+								  <p>Text:</p>
+								  <textarea name="postText" class="form-control" rows="5" id="topicText"></textarea>
+								</div>
+
+								<button class="btnSubmitTopic btn btn-primary" type="submit">Submit</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+  </body>
+</html>

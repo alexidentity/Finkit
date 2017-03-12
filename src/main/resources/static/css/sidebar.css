@@ -1,0 +1,170 @@
+#btnToggleSidebar {
+	position: fixed;
+	right: 260px;
+	top: 55px;
+	z-index: 2;
+}
+#topicSearch {
+	width: 80%;
+}
+.noRulesMsg {
+	margin-left: 5px;
+}
+.currentTopicInfo > p,
+.currentTopicName {
+	color: #D9DCEA;
+	margin-left: 15px;
+}
+.currentTopicInfo > p {
+	margin-top: -5px;
+}
+.currentTopicName,
+.currentTopicFavourites {
+	font-weight: bold;
+}
+.globalSearchText {
+	color: white;
+}
+.newPost {
+	padding: 15px 15px 0px 15px;
+}
+#btnNewPost {
+	width: 100%;
+	color: white;
+	background-color: #6441a5;
+	text-align: center;
+	border-radius: 10px;
+}
+#btnNewPost:hover {
+	background-color: rgb(111, 73, 187);
+}
+.sidebarTitle {
+	position: relative;
+	right: 3px;
+	padding-left: 5px;
+	font-size: 20px;
+	color: #D9DCEA;
+	text-shadow: 2px 1px 1px #300000;
+	background: linear-gradient(to bottom, rgba(244,67,54,0.9) , #F44336);
+}
+.currentTopicDescription,
+.currentTopicRules,
+.currentTopicModerator, 
+.currentTopicModeratorUsername {
+	color: white;
+}
+.currentTopicDescription {
+	margin-left: 5px;
+}
+.currentTopicDescription p {
+	margin: 0 auto;
+}
+.currentTopicRules > ul {
+	list-style-type: none;
+	margin-left: -30px;
+}
+.currentTopicModeratorUsername {
+    float: left;
+    margin-top: 7px;
+    margin-left: 5px;
+    text-decoration: none;
+    font-size: large;
+}
+
+.currentTopicModeratorUsername:hover {
+	color: white;
+}
+
+.currentTopicModeratorAvatar {
+	float: left;
+	width: 35px;
+	height: 35px;
+	margin-left: 2px;
+	margin-top: 2px;
+	margin-bottom: 1px;
+}
+.sidebar {
+	position: fixed;
+	right: 0px;
+	top: 60px;
+	z-index: 1;
+	border-radius: 0px;
+}
+.sidebar.open {
+	width: 150px;
+}
+.sidebar > .container {
+	padding: 0px;
+	width: 100%;
+}
+.sidebar .navbar-header,
+.sidebar .navbar-brand {
+	float: none;
+	display: block;
+	width: 100%;
+	margin: 0px;
+}
+.sidebar .navbar-brand {
+	height: 50px;
+}
+.sidebar > .container .navbar-brand {
+	padding: 0px;
+	margin: 0px;
+}
+.sidebar > .container .navbar-brand > .small-nav > span.logo,
+.sidebar.open > .container .navbar-brand > .full-nav {
+	display: block;
+	font-weight: bold;
+	padding: 15px 2px 15px 3px;
+	font-size: 18pt;
+}
+.sidebar.open > .container .navbar-brand {
+	width: 100%;
+	padding: 15px 15px 60px;
+	text-align: center;
+}
+.sidebar .navbar-nav > li {
+	float: none;
+}
+.sidebar .navbar-collapse {
+	padding: 0px;
+}
+.sidebar .navbar-nav {
+	float: none;
+	margin: 0px;
+	width: 270px;
+}
+.sidebar .navbar-nav > li > a {
+	padding: 0px;
+}
+.sidebar .navbar-nav > li > a > span {
+	display: block;
+	font-size: 11pt;
+	padding: 10px 10px 5px 12px;
+}
+.sidebar .tooltip,
+.sidebar .tooltip .tooltip-inner {
+	max-width: auto;
+	white-space: nowrap;
+}
+.sidebar-toggle {
+	position: fixed;
+	top: 71px;
+	left: 60px;
+	z-index: 1;
+}
+.sidebar ~ .sidebar-toggle > .nav-open {
+	display: inline-block;
+}
+.sidebar ~ .sidebar-toggle > .nav-close {
+	display: none;
+}
+.sidebar.open ~ .sidebar-toggle {
+	left: 155px;
+}
+.sidebar.open ~ .sidebar-toggle > .nav-open {
+	display: none;
+}
+.sidebar.open ~ .sidebar-toggle > .nav-close {
+	display: inline-block;
+}

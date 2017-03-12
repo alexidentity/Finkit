@@ -1,0 +1,25 @@
+body {
+  background: url("../media/404.png") fixed no-repeat !important;
+}
+
+.errorParent {
+  margin-top: 5%;
+}
+
+.oops {
+  font-size: 100px;
+  font-weight: 900;
+}
+
+.oops, .errorMessage {
+  color: #565a5c;
+}
+
+.errorParent div {
+  background-color: rgba(245, 245, 245, 0.8);
+  box-shadow: 10px 15px 50px rgba(0, 0, 0, 0.9);
+}
+
+#btnTopics {
+	display: none;
+}

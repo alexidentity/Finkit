@@ -1,0 +1,308 @@
+#btnFollow {
+	position: absolute;
+ 	top: 120px;
+ 	left: 30px;
+}
+
+#btnManageTopics {
+	z-index: 1;
+	position: absolute;
+    top: 120px;
+    left: 25px;
+}
+
+#btnCloseManageTopics {
+	float: right;
+	cursor: pointer;
+}
+
+#manageTopics {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	margin-top: 100px;
+	z-index: 3;
+}
+
+.manageTopicsContent {
+	box-shadow: 5px 10px 15px 15px rgba(0,0,0,0.5);
+}
+
+.myTopics {
+	width: 100%;
+}
+
+.myTopics tr th {
+	font-size: 15px;
+	border-bottom: 2px solid #6678b1;
+	border-right: 30px solid #fff;
+	border-left: 30px solid #fff;
+	color: #039;
+	padding: 8px 2px;
+}
+
+.myTopics tr td {
+	border-right: 30px solid #fff;
+	border-left: 30px solid #fff;
+	color: #669;
+	padding: 12px 2px 0;
+}
+
+.deleteTopic {
+	color: #ff0000;
+	padding: 5px 5px 0px 5px;
+}
+
+.deleteTopic:hover {
+	color: #fff;
+	background-color: #ff0000;
+}
+
+.editTopic {
+	color: #337ab7;
+	padding: 5px 5px 0px 5px;
+}
+
+.editTopic:hover {
+	color: #fff;
+	background-color: #337ab7;
+}
+
+.topicLink {
+	text-align: center;
+	font-size: x-large;
+}
+
+.topics {
+	border-right: thin solid #369;
+}
+
+hr {
+	border-color: #369;
+}
+
+.closePopup {
+	position: absolute;
+	right: 0px;
+	cursor: pointer;
+	border-style: solid;
+	border-width: 0 40px 40px 0;
+	border-color: transparent rgba(255, 255, 255, 0.6) transparent transparent;
+}
+
+.closePopup span {
+	position: absolute;
+	left: 20px;
+	top: 5px;
+}
+
+.changeAvatar {
+	z-index: 2;
+	position: absolute;
+	top: 15%;
+	left: 13%;
+	box-shadow: 10px 10px 10px rgba(100,65,165,0.65);
+	background-color: white;
+	border: thin solid #369;
+}
+
+.changeAvatarButtons {
+	position: absolute;
+	bottom: 0px;
+}
+
+#btnSave {
+    border-radius: 0px !important;
+    padding-right: 13px;
+    float: right;
+}
+
+.btn-file {
+  position: relative;
+  border-radius: 0px !important;
+}
+
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 999px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
+}
+
+.btnDismissWarning {
+  float: right;
+}
+
+.alerterino {
+	position: absolute;
+	top: 10%;
+	z-index: 1;
+}
+
+#alertType {
+	z-index: 2;
+  box-shadow: 20px 20px 50px rgb(61, 66, 62);
+}
+
+.profileContainer {
+	margin-top: 10px;
+}
+
+.profileBorder {
+	border: 1px solid #369;
+	padding: 10px 10px;
+	background-color: rgba(255, 255, 255, 0.95);
+}
+
+.useravatar img {
+ width: 100px;
+ height: 100px;
+ max-width: 100px;
+ max-height: 100px;
+}
+
+.following div {
+	font-size: 16px;
+}
+
+.following a {
+	text-decoration: none;
+	position: relative;
+}
+
+.following a img {
+    margin-bottom: 9px;
+    margin-right: 9px;
+    box-shadow: 5px 5px 1px rgba(150,150,150,0.8);
+}
+
+.followerUsername {
+	position: absolute;
+	overflow: hidden;
+	top: 34.5px;
+	left: 0;
+	width: 100px;
+	color: white;
+	text-align: center;
+	font-weight: bold;
+	background: rgba(0,0,0,.54);
+}
+
+.useravatar, .useravatar-n {
+	z-index: 1;
+	position: absolute;
+	top: 5px;
+	left: 20px;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	overflow: hidden;
+	box-shadow: 3px 3px 5px rgba(100,65,165,0.65);
+}
+
+:HOVER.useravatar {
+	cursor: pointer;
+}
+
+.userStats .badge {
+	float: right;
+	margin-left: 5px;
+}
+
+.recentActivity {
+	float: right;
+	padding-bottom: 50px;
+}
+
+.recentActivityList {
+	margin-left: -40px;
+}
+
+.statsLeft {
+	float: left;
+	margin-right: 10px;
+}
+
+.statsRight {
+	float: right;
+}
+
+.card {
+	margin-left: 120px;
+	margin-right: 120px;
+	float: left;
+}
+
+.settings {
+ top: 75px;
+ bottom: 0;
+ color: #fff;
+ font-size: 9px;
+ font-weight: bold;
+ left: 0;
+ line-height: 9px;
+ position: absolute;
+ padding: 7px 0;
+ text-align: center;
+ width: 96px;
+ background: rgba(0,0,0,.54);
+}
+
+ul {
+	list-style: none;
+}
+
+img {
+	width: 100px;
+	height: 100px
+}
+
+.postComment {
+	padding-left: 15px;
+    font-size: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    line-height: 16px;
+    max-height: 32px;
+}
+
+.recentActivityList li {
+	margin-bottom: 10px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    box-shadow: 5px 5px 5px rgba(165, 165, 165, 0.9);
+}
+
+.recentPostLeftBar {
+    position: absolute;
+    float: left;
+    height: 100%;
+    padding-right: 12px;
+    background-color: rgba(255,153,51,0.80);
+}
+
+.recentPost {
+	background-color: rgba(255, 153, 51, 0.15);
+	margin-left: 15px;
+	padding-left: 1px;
+}
+
+.recentPost div {
+	margin-left: 3px;
+}
+
+.emptyActivityList {
+	padding-bottom: 60px;
+	font-size: 16px;
+}

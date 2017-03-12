@@ -1,0 +1,36 @@
+hr {
+	border-color: #369;
+}
+
+.newPostContainer {
+	margin-top: 10px;
+}
+
+.newPostBorder {
+	border: 1px solid #369;
+	padding: 10px 10px;
+	background-color: rgba(255, 255, 255, 0.95);
+}
+
+.btnSubmitTopic {
+	float: right;
+	margin-top: 5px;
+}
+
+.newTopicDescription {
+	float: right;
+	margin-top: 15px;
+}
+
+.newPost {
+	float: left;
+	z-index: 0;
+}
+
+.newPost form p {
+	margin-top: 5px;
+}
+
+.subtopicRules {
+	margin-top: 10px;
+}

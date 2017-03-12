@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+  <head>
+    <meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>FinkIt - Post</title>
+		
+		<link rel="shortcut icon" type="image/x-icon" th:href="@{/media/favicon.ico}" />
+
+		<!-- Core css and jquery -->
+		<link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+		<link th:href="@{/css/font-awesome.css}" rel="stylesheet" />
+		<script th:src="@{/js/jquery-2.1.4.js}"></script>
+		<script th:src="@{/js/bootstrap.js}"></script>
+
+		<link th:href="@{/css/jquery-ui.css}" rel="stylesheet" />
+		<script th:src="@{/js/jquery-ui.js}"></script>
+		
+		<script th:src="@{/js/angular.js}"></script>
+		
+		<!-- Navbars -->
+		<link th:href="@{/css/navbar.css}" rel="stylesheet" />
+		<link th:href="@{/css/navbarTopics.css}" rel="stylesheet" />
+		<script th:src="@{/js/navbar.js}"></script>
+		<script th:src="@{/js/navbarTopics.js}"></script>
+		<script th:src="@{/js/jquery.searchable.js}"></script>
+		<link th:if="${not viewModel.isTopicStyleDefault}" th:href="@{/dynamic/css/{cssName}.css(cssName=${viewModel.topicInfoSidebar.subtopic})}" rel="stylesheet" type="text/css" />
+				
+		<!-- Sidebar -->
+		<link th:href="@{/css/sidebar.css}" rel="stylesheet" />
+		<script th:src="@{/js/sidebar.js}"></script>
+
+		<!-- Comment & Topic -->
+		<script th:src="@{/js/comment.js}"></script>
+		<link th:href="@{/css/topic.css}" rel="stylesheet" />
+		
+		<script th:src="@{/js/vote.js}"></script>
+  </head>
+
+  <body th:with="navbarLeftButtons=true">
+    <div th:replace="fragments/navbar :: navbarFragment"></div>
+    <div th:replace="fragments/topicsSearch :: topicSearchFragment"></div>
+    <div th:replace="fragments/topicSidebar :: topicSidebarFragment"></div>
+
+		<!-- Topic overview -->
+		<div class="topicContainer" ng-app="">
+			<div class="row">
+				<div class="topicOverview col-md-9">
+					<div class="topic" th:attr="data-post-id=${viewModel.post.id}">
+
+						<div class="voting">
+							<ul th:attr="data-post-id=${viewModel.post.id}, data-post-number=0">
+								<li class="upvote">
+									<a id="upvote_0" href="#" th:classappend="${viewModel.isPostUpvotedByUser} ? 'upvotedByUser voted' : notVoted">
+										<span class="glyphicon glyphicon-triangle-top"></span>
+									</a>
+								</li>
+								<li th:attr="data-ng-model='upvotes_0=\'' + ${viewModel.upvotes} + '\'' + ';' + 'downvotes_0=\'' + ${viewModel.downvotes} + '\''">
+									<span id="postVotes_0" class="topicVotes" th:inline="text">
+										{{ upvotes_0 - downvotes_0 }}
+									</span>
+								</li>
+								<li class="downvote">
+									<a id="downvote_0" href="#" th:classappend="${viewModel.isPostDownvotedByUser} ? 'downvotedByUser voted' : notVoted">
+										<span class="glyphicon glyphicon-triangle-bottom"></span>
+									</a>
+								</li>
+							</ul>
+						</div>
+
+						<div>
+							<h2 th:if="${viewModel.post.postLink == ''}" class="topicTitle" th:text="${viewModel.post.title}"></h2>
+							<h2 th:if="${viewModel.post.postLink != ''}" class="topicTitle">
+								<a th:href="@{${viewModel.post.postLink}}" th:text="${viewModel.post.title}"></a>
+							</h2>
+							
+							<ul>
+								<li>
+									<p class="topicInfo" th:inline="text">Submitted [[${viewModel.post.postInfoFormatted}]] by
+								    <a class="postedBy" th:href="@{/profile/{postedBy}(postedBy=${viewModel.post.postedBy})}" th:text="${viewModel.post.postedBy}"></a>
+							    </p>
+								</li>
+							</ul>
+						</div>
+						
+						<div class="topicText" th:text="${viewModel.post.description}"></div>
+
+						<hr />
+
+						<div class="comments">
+							<form sec:authorize="isAuthenticated()" id="commentOnPost" name="saveComment" method="post" action="/comment">
+								<div class="form-group">
+								  <textarea name="comment" class="form-control" rows="5" id="commentText" placeholder="Write a comment"></textarea>
+								</div>
+
+								<button class="btnWriteComment btn btn-primary" type="submit">Save</button>
+							</form>
+							
+							<h3 id="comments">Comments:</h3>
+
+							<div class="row">
+								<div class="commentsOverview col-md-9">
+									<ul class="comments-list">
+									
+										<li id="postReply" class="postReply">
+					                        <div class="commentVoting">
+					                            <ul class="root">
+					                                <li class="commentUpvote">
+					                                    <a href="#">
+					                                    	<span class="glyphicon glyphicon-triangle-top"></span>
+					                                    </a>
+					                                </li>
+					                                <li class="commentDownvote">
+					                                    <a href="#">
+					                                    	<span class="glyphicon glyphicon-triangle-bottom"></span>
+					                                    </a>
+					                                </li>
+					                            </ul>
+					                        </div>
+					                        <div class="commentUserInfo">
+					                            <a>
+					                                <img class="currentTopicModeratorAvatar commentAvatar" />
+					                            </a>
+					                            <div class="commentUsername">
+					                                <a class="commentUsernameLink"></a>
+					                                <div class="commentTimePostedDiv">
+					                                    <span class="glyphicon glyphicon-time"></span>
+					                                    <span class="commentTimePosted"></span>
+					                                    <span class="commentPoints label"></span>
+					                                    <span> Points</span>
+					                                </div>
+					                            </div>
+					                        </div>
+					                        <div class="commentDiv">
+					                            <span class="comment"></span>
+					                            <div>
+					                                <a href="#" class="reply"><i class="fa fa-reply"></i> Reply</a>
+					                            </div>
+					                        </div>
+					
+					                        <div class="commentReply form-group">
+				                          		<form name="saveComment" class="commentOnComment" method="post" action="/comment">
+						                          <textarea name="comment" class="form-control" rows="5"></textarea>
+						                          <button type="submit" class="commentLink btn btn-primary"><i class="fa fa-comment"></i> Comment</button>
+				                          		</form>
+					                        </div>
+					                        
+					                        <div class="subComments">
+					                            <ul class="subcomments-list nested"></ul>
+					                        </div>
+					                    </li><!-- End of PostReply -->
+									
+					                    <li th:each="rootComment : ${viewModel.rootComments}">
+					                        <div class="commentVoting">
+					                            <ul class="root" th:attr="data-comment-id=${rootComment.comment.id}, data-nested-comment-id=-1">
+					                                <li class="commentUpvote">
+					                                    <a href="#" th:attr="id='upvoteComment_' + ${rootComment.comment.id} + '_-1'" th:classappend="${rootComment.isCommentUpvotedByUser} ? 'upvotedByUser voted' : notVoted">
+					                                    	<span class="glyphicon glyphicon-triangle-top"></span>
+					                                    </a>
+					                                </li>
+					                                <li class="commentDownvote">
+					                                    <a href="#" th:attr="id='downvoteComment_' + ${rootComment.comment.id} + '_-1'" th:classappend="${rootComment.isCommentDownvotedByUser} ? 'downvotedByUser voted' : notVoted">
+					                                    	<span class="glyphicon glyphicon-triangle-bottom"></span>
+					                                    </a>
+					                                </li>
+					                            </ul>
+					                        </div>
+					                        <div class="commentUserInfo">
+					                            <a th:href="@{/profile/{login}(login=${rootComment.comment.user.login})}">
+					                                <img class="currentTopicModeratorAvatar commentAvatar"
+					                                     th:attr="src=@{${rootComment.comment.user.avatarUrl}}" />
+					                            </a>
+					                            <div class="commentUsername">
+					                                <a th:href="@{/profile/{login}(login=${rootComment.comment.user.login})}"
+					                                   th:attr="data-comment-id=${rootComment.comment.id}"
+					                                   class="commentUsernameLink" th:text="${rootComment.comment.user.login}">
+					                                </a>
+					                                <div class="commentTimePostedDiv">
+					                                    <span class="glyphicon glyphicon-time"></span>
+					                                    <span class="commentTimePosted" th:text="${rootComment.comment.createdFormatted}"></span>
+					                                    <span class="commentPoints label" th:attr="id='commentVotes_' + ${rootComment.comment.id} + '_-1'" th:text="${rootComment.votes}"></span>
+					                                    <span> Points</span>
+					                                </div>
+					                            </div>
+					                        </div>
+					                        <div sec:authorize="isAuthenticated()" class="commentDiv">
+					                            <span class="comment" th:text="${rootComment.comment.content}"></span>
+					                            <div>
+					                                <a href="#" class="reply"><i class="fa fa-reply"></i> Reply</a>
+					                            </div>
+					                        </div>
+					
+					                        <div th:id="'commentReply' + ${rootComment.comment.id}" th:attr="data-comment-id=${rootComment.comment.id}" class="commentReply form-group">
+					                        	<form name="saveComment" class="commentOnComment" method="post" action="/comment">
+						                          <textarea name="comment" class="form-control" rows="5" th:placeholder="'Reply to @' + ${rootComment.comment.user.login}"></textarea>
+						                          <button type="submit" class="commentLink btn btn-primary"><i class="fa fa-comment"></i> Comment</button>
+					                          	</form>
+					                        </div>
+					
+					                        <div th:attr="id='subComments_' + ${rootComment.comment.id}" class="subComments">
+					                            <ul class="subcomments-list nested">
+					                                <li th:each="nestedComment : ${rootComment.comment.nestedComments}">
+					                                    <div class="commentVoting">
+					                                        <ul th:attr="data-comment-id=${rootComment.comment.id}, data-nested-comment-id=${nestedComment.comment.id}">
+					                                            <li class="commentUpvote">
+								                                    <a href="#" th:attr="id='upvoteComment_' + ${rootComment.comment.id} + '_' + ${nestedComment.comment.id}" th:classappend="${nestedComment.isCommentUpvotedByUser} ? 'upvotedByUser voted' : notVoted">
+								                                    	<span class="glyphicon glyphicon-triangle-top"></span>
+								                                    </a>
+								                                </li>
+								                                <li class="commentDownvote">
+								                                    <a href="#" th:attr="id='downvoteComment_' + ${rootComment.comment.id} + '_' + ${nestedComment.comment.id}" th:classappend="${nestedComment.isCommentDownvotedByUser} ? 'downvotedByUser voted' : notVoted">
+								                                    	<span class="glyphicon glyphicon-triangle-bottom"></span>
+								                                    </a>
+								                                </li>
+					                                        </ul>
+					                                    </div>
+					                                    <div class="commentUserInfo">
+					                                        <a th:href="@{/profile/{login}(login=${nestedComment.comment.user.login})}">
+					                                            <img class="currentTopicModeratorAvatar commentAvatar" th:attr="src=@{${nestedComment.comment.user.avatarUrl}}" />
+					                                        </a>
+					                                        <div class="commentUsername">
+					                                            <a th:href="@{/profile/{login}(login=${nestedComment.comment.user.login})}"
+					                                               class="commentUsernameLink" th:text="${nestedComment.comment.user.login}">
+					                                            </a>
+					                                            <div class="commentTimePostedDiv">
+					                                                <span class="glyphicon glyphicon-time"></span>
+					                                                <span class="commentTimePosted" th:text="${nestedComment.comment.createdFormatted}"></span>
+					                                                <span class="commentPoints label" th:attr="id='commentVotes_' + ${rootComment.comment.id} + '_' + ${nestedComment.comment.id}" th:text="${nestedComment.votes}"></span>
+					                                                <span> Points</span>
+					                                            </div>
+					                                        </div>
+					                                    </div>
+					                                    <div class="commentDiv">
+					                                        <span class="comment" th:text="${nestedComment.comment.content}"></span>
+					                                    </div>
+					                                </li>
+					                            </ul>
+					                        </div>
+					                    </li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </body>
+</html>

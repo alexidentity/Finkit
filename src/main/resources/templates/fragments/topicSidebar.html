@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      
+  <body>
+	<div th:fragment="topicSidebarFragment" class="navbar navbar-default navbar-inverse navbar-topics" role="navigation">
+		<div class="container">
+			<div>
+				<form method="get">
+					<ul id="topicNavbar" class="nav navbar-nav searchable-container">
+						<li>
+			      			<input id="topicNavbarSearch" type="search" class="form-control" placeholder="Search" />
+						</li>
+						<li th:each="subscription : ${viewModel.subtopicSubscriptionList}">
+							<a th:href="@{/t/{subtopic}(subtopic=${subscription})}">
+								<span class="full-nav topicName" th:text="${subscription}"></span>
+							</a>
+						</li>
+						<li class="emptySubscriptionList" th:if="${#lists.isEmpty(viewModel.subtopicSubscriptionList)}">
+							You are not subscribed<br />to any subtopics right now!
+						</li>
+					</ul>
+				</form>
+			</div>
+		</div>
+	</div>
+  </body>
+  
+</html>
+
+<!-- Topics view -->
